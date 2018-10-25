@@ -23,8 +23,42 @@ class ContatoRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method()) {
+          case "POST":
+            return [
+              'saudacao'=>'required|max:10',
+              'nome'=>'required|max:100',
+              'telefone'=>'required|max:15',
+              'email'=>'email|max:200|unique:contatos',
+              'data_nascimento'=>'date_format:"d/m/Y"',
+              'avatar'=>'nullable|sometimes|image|mimes:jpg,jpeg,png,gif'
+            ];
+          break;
+
+          case "PUT":
+            return [
+              'saudacao'=>'required|max:10',
+              'nome'=>'required|max:100',
+              'telefone'=>'required|max:15',
+              'email'=>'email|max:200|unique:contatos,email,'.$this->id,
+              'data_nascimento'=>'date_format:"d/m/Y"',
+              'avatar'=>'nullable|sometimes|image|mimes:jpg,jpeg,png,gif'
+            ];
+          break;
+
+          default:
+          break;
+        }
+    }
+
+    public function messages()
+    {
+      return [
+        'saudacao.required'=>'O campo \'saudação\' é obrigatório.',
+        'nome.required'=>'O campo \'nome\' é obrigatório.',
+        'telefone.required'=>'O campo \'telefone\' é obrigatório.',
+        'email.email'=>'Informe um e-mail válido.',
+        'data_nascimento.date_format'=>'Campo deve ser no formato DD/MM/AAAA'        
+      ];
     }
 }
