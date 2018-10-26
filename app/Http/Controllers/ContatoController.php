@@ -26,7 +26,7 @@ class ContatoController extends Controller
      */
     public function create()
     {
-
+      return view('contato.create');
     }
 
     /**
@@ -37,7 +37,9 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contato = Contato::create($request->all());
+
+        return view('contato.show',['data'=>$contato]);
     }
 
     /**
@@ -61,7 +63,9 @@ class ContatoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contato = Contato::find($id);
+
+        return view('contato.edit',['data'=>$contato]);
     }
 
     /**
@@ -73,7 +77,11 @@ class ContatoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $contato = Contato::find($id);
+      $contato->fill($request->all()).
+      $contato->update();
+
+      return $this->show($id);
     }
 
     /**
@@ -84,6 +92,8 @@ class ContatoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Contato::destroy($id);
+
+        return $this->index();
     }
 }

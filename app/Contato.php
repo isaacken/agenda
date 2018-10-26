@@ -38,10 +38,22 @@ class Contato extends Model
 
     public function dateFormatDatabaseScreen($data,$formato='database') {
   		if ($formato == "screen") {
-  			$data = str_replace('-','/',$data);
+        $aux = substr($data,8,2);
+        $aux .= '/';
+        $aux .= substr($data,5,2);
+        $aux .= '/';
+        $aux .= substr($data,0,4);
+
+        $data = $aux;
   		}
   		else if ($formato == "database") {
-  			$data = str_replace('/','-',$data);
+        $aux = substr($data,6,4);
+        $aux .= '-';
+        $aux .= substr($data,3,2);
+        $aux .= '-';
+        $aux .= substr($data,0,2);
+
+        $data = $aux;
   		}
 
       return $data;
