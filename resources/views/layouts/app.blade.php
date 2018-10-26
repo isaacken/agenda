@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -35,7 +35,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                      @guest
+                      @else
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ url('contatos') }}">
+                          Contatos <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                      @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
