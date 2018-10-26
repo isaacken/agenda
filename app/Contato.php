@@ -18,12 +18,12 @@ class Contato extends Model
     }
 
     public function getDataNascimentoAttribute($value) {
-      return dateFormatDatabaseScreen($value,'screen');
+      return $this->dateFormatDatabaseScreen($value,'screen');
     }
 
     //MUTATOR
     public function setDataNascimentoAttribute($value) {
-      $this->attributes['data_nascimento'] = dateFormatDatabaseScreen($value);
+      $this->attributes['data_nascimento'] = $this->dateFormatDatabaseScreen($value);
     }
 
     public function setAvatarAttribute($value) {
@@ -35,4 +35,15 @@ class Contato extends Model
       }
       $this->attributes['avatar'] = str_replace('public','storage',$filepath).$filename;
     }
+
+    public function dateFormatDatabaseScreen($data,$formato='database') {
+  		if ($formato == "screen") {
+  			$data = str_replace('-','/',$data);
+  		}
+  		else if ($formato == "database") {
+  			$data = str_replace('/','-',$data);
+  		}
+
+      return $data;
+  	}
 }

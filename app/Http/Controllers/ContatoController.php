@@ -16,7 +16,7 @@ class ContatoController extends Controller
     {
         $contatos = Contato::all()->sortBy('nome');
 
-        return view('contato.index',['contatos'=>$contatos]);
+        return view('contato.index',compact('contatos'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -48,7 +48,9 @@ class ContatoController extends Controller
      */
     public function show($id)
     {
-        //
+        $contato = Contato::find($id);
+
+        return view('contato.show',['data'=>$contato]);
     }
 
     /**
